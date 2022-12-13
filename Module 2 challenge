@@ -1,3 +1,15 @@
+Sub multiple_year_stock_data()
+
+'Set initial variable
+Dim ws As Worksheet
+Dim Ticker As String
+Dim ticker_total As Double
+Dim Yearly_change As Double
+Dim Percent_change As Double
+
+ticker_total = 0
+Yearly_change = 0
+Percent_change = 0
 
 'Keep track of the location for each ticker in the summary table
 Dim Summary_table_Row As Integer
