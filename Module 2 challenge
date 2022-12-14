@@ -1,3 +1,13 @@
+Sub multiple_year_stock_data()
+
+Application.ScreenUpdating = False
+
+Dim ticker As String
+
+Dim ticker_total As Double
+ticker_total = 0
+
+Dim yearly_change As Double
 yearly_change = 0
 
 Dim percent_change As Double
@@ -38,7 +48,7 @@ open_price = Cells(i, 3).Value
 
 End If
 
-If Cells(Rows.Count, 6).End(xlUp) <> Cells(i, 6) Then
+If cells(i - ) <> Cells(i, 6) Then
 
 close_price = Cells(i, 6).Value
 
