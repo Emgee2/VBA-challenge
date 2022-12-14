@@ -41,6 +41,7 @@ ticker_total = ticker_total + Cells(i, 7).Value
 
 End If
 
+For j = 3 To 6
 
 If Cells(i + 1, 3).Value <> Cells(i, 3) Then
 
@@ -48,22 +49,33 @@ open_price = Cells(i, 3).Value
 
 End If
 
-If cells(i - ) <> Cells(i, 6) Then
+If Cells(i - 1, 6) <> Cells(i, 6) Then
 
 close_price = Cells(i, 6).Value
 
 yearly_change = close_price - open_price
 
+percent_change = (close_price - open_price) / open_price
+
 Range("L" & summary_table_row).Value = yearly_change
+Range("M" & summary_table_row).Value = percent_change
+
 
 yearly_change = 0
+
+percent_change = 0
 
 Else
 
 yearly_change = close_price - open_price
 
+percent_change = (close_price - open_price) / open_price
+
+
 End If
 
+
+Next j
 
 Next i
 
