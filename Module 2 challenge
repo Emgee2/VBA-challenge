@@ -2,86 +2,86 @@ Sub multiple_year_stock_data()
 
 Application.ScreenUpdating = False
 
-Dim ticker As String
+For Each ws In Worksheets
 
-Dim ticker_total As Double
-ticker_total = 0
+   Dim ticker As String
 
-Dim yearly_change As Double
-yearly_change = 0
+   Dim ticker_total As Double
+   
+   ticker_total = 0
 
-Dim percent_change As Double
-percent_change = 0
+   Dim yearly_change As Double
+   
+   Dim percent_change As Double
+   
+   Dim open_price As Double
+  
+   Dim close_price As Double
 
-Dim open_price As Double
-Dim close_price As Double
+   Dim summary_table_row As Integer
+   
+   summary_table_row = 2
+   
+   lastrow = ws.Cells(Rows.Count, 1).End(xlUp).Row
 
-Dim summary_table_row As Integer
-summary_table_row = 2
+For i = 2 To lastrow
 
-For i = 2 To 759001
+   If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
 
-If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+   ticker = ws.Cells(i, 1).Value
 
-ticker = Cells(i, 1).Value
+   ticker_total = ticker_total + ws.Cells(i, 7).Value
 
-ticker_total = ticker_total + Cells(i, 7).Value
+   ws.Range("H" & summary_table_row).Value = ticker
+   
+   ws.Range("K" & summary_table_row).Value = ticker_total
 
-Range("K" & summary_table_row).Value = ticker
-Range("N" & summary_table_row).Value = ticker_total
+   summary_table_row = summary_table_row + 1
 
-summary_table_row = summary_table_row + 1
-
-ticker_total = 0
+   ticker_total = 0
 
 
 Else
 
-ticker_total = ticker_total + Cells(i, 7).Value
+   ticker_total = ticker_total + ws.Cells(i, 7).Value
 
 End If
 
-For j = 3 To 6
+   If ws.Cells(i - 1, 1).Value <> ws.Cells(i, 1).Value Then
 
-If Cells(i + 1, 3).Value <> Cells(i, 3) Then
-
-open_price = Cells(i, 3).Value
+   open_price = ws.Cells(i, 3).Value
 
 End If
 
-If Cells(i - 1, 6) <> Cells(i, 6) Then
+   close_price = ws.Cells(i, 6).Value
 
-close_price = Cells(i, 6).Value
+   yearly_change = close_price - open_price
 
-yearly_change = close_price - open_price
+   precent_change = yearly_change / open_price * 100
 
-percent_change = (close_price - open_price) / open_price
-
-Range("L" & summary_table_row).Value = yearly_change
-Range("M" & summary_table_row).Value = percent_change
-
-
-yearly_change = 0
-
-percent_change = 0
-
-Else
-
-yearly_change = close_price - open_price
-
-percent_change = (close_price - open_price) / open_price
-
-
+   ws.Range("I" & summary_table_row).Value = yearly_change
+   
+   ws.Range("J" & summary_table_row).Value = percent_change
+   
+If ws.Cells(i, 9) > 0 Then
+      
+   ws.Cells(i, 9).Interior.ColorIndex = 4
+      
+End IF
+   
+If ws.Cells(i,9) < 0 Then
+       
+   ws.Cells(i, 9).Interior.ColorIndex = 3
+    
 End If
-
-
-Next j
-
+    
+    
 Next i
+    
+Next ws
 
 
-
-Application.ScreenUpdating = True
+   Application.ScreenUpdating = True
 
 
 End Sub
