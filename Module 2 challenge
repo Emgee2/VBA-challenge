@@ -55,20 +55,18 @@ End If
 
    yearly_change = close_price - open_price
 
-   precent_change = (close_price - open_price) / open_price
+   precent_change = (close_price - open_price) / open_price*100
 
+   ws.Range("J1:J3001").NumberFormat = "0.00%"
+   
    ws.Range("I" & summary_table_row).Value = yearly_change
    
    ws.Range("J" & summary_table_row).Value = percent_change
    
-   ws.Range("J1:J3001").NumberFormat = "0.00%"
-
-
 If ws.Cells(i, 9) > 0 Then
       
    ws.Cells(i, 9).Interior.ColorIndex = 4
-      
-   
+         
 ElseIf ws.Cells(i, 9) < 0 Then
        
    ws.Cells(i, 9).Interior.ColorIndex = 3
