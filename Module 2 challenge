@@ -1,5 +1,5 @@
 Sub multiYearStocks():
-'Loop over multiple worksheet
+
 For Each ws In Worksheets
    ws.Cells(1, 9).Value = "Ticker"
    ws.Cells(1, 16).Value = "Ticker"
@@ -11,42 +11,40 @@ For Each ws In Worksheets
    ws.Cells(3, 15).Value = "Greatest % Decrease"
    ws.Cells(4, 15).Value = "Greatest Total Volume"
    
-'Declare variables calculate yearly total, percent change, and total volume by ticker
+
 Dim i As Long
 Dim tickerName As String
 Dim openPrice As Double
 Dim totalVolume As Double
 totalVolume = 0
-Dim totalYearly As Double
-totalYearly = 0
+Dim yearlyChange As Double
+yearlyChange = 0
 Dim percentChange As Double
 Dim tickerRow As Long
 tickerRow = 2
 Dim lastRow As Long
 lastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
 
-'Add loop
 For i = 2 To lastRow
-openYearly = ws.Cells(tickerRow, 3).Value
+openPrice = ws.Cells(tickerRow, 3).Value
 
-'Add conditional
    If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
        tickerName = ws.Cells(i, 1).Value
        ws.Range("I" & tickerRow).Value = tickerName
    
-       totalYearly = totalYearly + (ws.Cells(i, 6).Value - openPrice)
-       ws.Range("J" & tickerRow).Value = totalYearly
+       yearlyChange = yearlyChange + (ws.Cells(i, 6).Value - openPrice)
+       ws.Range("J" & tickerRow).Value = yearlyChange
    
-       percentChange = (totalYearly / openPrice)
+       percentChange = (yearlyChange / openPrice)
        ws.Range("K" & tickerRow).Value = percentChange
        ws.Range("K" & tickerRow).Style = "Percent"
        
        totalVolume = totalVolume + ws.Cells(i, 7).Value
        ws.Range("L" & tickerRow).Value = totalVolume
        
-       'Reset
+       
        tickerRow = tickerRow + 1
-       totalYearly = 0
+       yearlyChange = 0
        totalVolume = 0
        openPrice = ws.Cells(tickerRow, 3).Value
    Else
@@ -54,14 +52,12 @@ openYearly = ws.Cells(tickerRow, 3).Value
    End If
 Next i
 
-'Declare variables for cell formatting
+
 Dim yearLastRow As Long
 yearLastRow = ws.Cells(Rows.Count, 10).End(xlUp).Row
 
-'Add Loop for cell formatting
 For i = 2 To yearLastRow
 
-'Add Conditional for cell formatting
    If ws.Cells(i, 10).Value >= 0 Then
        ws.Cells(i, 10).Interior.ColorIndex = 4
    Else
@@ -69,7 +65,6 @@ For i = 2 To yearLastRow
    End If
 Next i
    
-'Declare variables for finding max & min
 Dim percentLastRow As Long
 percentLastRow = ws.Cells(Rows.Count, 11).End(xlUp).Row
 Dim percent_max As Double
@@ -77,10 +72,8 @@ percent_max = 0
 Dim percent_min As Double
 percent_min = 0
 
-'Add Loop for finding max & min
 For i = 2 To percentLastRow
 
-'Add Conditional for max & min
    If percent_max < ws.Cells(i, 11).Value Then
        percent_max = ws.Cells(i, 11).Value
        ws.Cells(2, 17).Value = percent_max
@@ -94,16 +87,13 @@ For i = 2 To percentLastRow
    End If
 Next i
 
-'Declare variable for greatest total volume
 Dim totalVolumeRow As Long
 totalVolumeRow = ws.Cells(Rows.Count, 12).End(xlUp).Row
 Dim totalVolumeMax As Double
 totalVolumeMax = 0
 
-'Add Loop for finding greatest total volume
 For i = 2 To totalVolumeRow
 
-'Add Conditional for greatest total volume
    If totalVolumeMax < ws.Cells(i, 12).Value Then
        totalVolumeMax = ws.Cells(i, 12).Value
        ws.Cells(4, 17).Value = totalVolumeMax
