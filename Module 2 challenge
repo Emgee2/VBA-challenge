@@ -38,7 +38,16 @@ For i = 2 To LastRow
 
    ticker_total = 0
 
+   close_price = ws.Cells(i, 6).Value
 
+   yearly_change = close_price - open_price
+
+   precent_change = (close_price - open_price) / open_price*100
+ 
+   ws.Range("I" & summary_table_row).Value = yearly_change
+   
+   ws.Range("J" & summary_table_row).Value = percent_change
+   
 Else
 
    ticker_total = ticker_total + ws.Cells(i, 7).Value
@@ -50,33 +59,20 @@ End If
    open_price = ws.Cells(i, 3).Value
 
 End If
-
-   close_price = ws.Cells(i, 6).Value
-
-   yearly_change = close_price - open_price
-
-   precent_change = (close_price - open_price) / open_price*100
-
-   ws.Range("J1:J3001").NumberFormat = "0.00%"
-   
-   ws.Range("I" & summary_table_row).Value = yearly_change
-   
-   ws.Range("J" & summary_table_row).Value = percent_change
    
 If ws.Cells(i, 9) > 0 Then
       
    ws.Cells(i, 9).Interior.ColorIndex = 4
          
-ElseIf ws.Cells(i, 9) < 0 Then
+Else ws.Cells(i, 9) < 0 Then
        
    ws.Cells(i, 9).Interior.ColorIndex = 3
     
 End If
-    
-     
-Next i
 
-    
+    ws.Range("J1:J3001").NumberFormat = "0.00%" 
+Next i
+ 
 Next ws
 
 End Sub
