@@ -56,21 +56,21 @@ End If
 
    If ws.Cells(i - 1, 1).Value <> ws.Cells(i, 1).Value Then
 
-   open_price = ws.Cells(i, 3).Value
+      open_price = ws.Cells(i, 3).Value
 
 End If
    
-If ws.Cells(i, 9) > 0 Then
+   If ws.Cells(i, 9) < 0 Then
       
-   ws.Cells(i, 9).Interior.ColorIndex = 4
+      ws.Cells(i, 9).Interior.ColorIndex = 4
          
-Else ws.Cells(i, 9) < 0 Then
+  Else ws.Cells(i, 9) > 0 Then
        
-   ws.Cells(i, 9).Interior.ColorIndex = 3
+       ws.Cells(i, 9).Interior.ColorIndex = 3
     
 End If
-
-    ws.Range("J1:J3001").NumberFormat = "0.00%" 
+       ws.Range("J1:J3001").NumberFormat = "0.00%"
+    
 Next i
  
 Next ws
